@@ -3,7 +3,7 @@ import { useState } from "react";
 import bugImageUrl from "../../assets/bug.svg";
 import ideaImageUrl from "../../assets/idea.svg";
 import thoughtImageUrl from "../../assets/thought.svg";
-import { CloseButton } from "../CloseButton";
+import { FeedbackContentStep } from "./Steps/FeedbackContentStep";
 import { FeedbackTypeStep } from "./Steps/FeedbackTypeStep";
 
 export const feedbackTypes = {
@@ -35,6 +35,10 @@ export type FeedbackType = keyof typeof feedbackTypes;
 export function WidgetForm() {
   const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
 
+  function handleRestartFeedback() {
+    setFeedbackType(null);
+  }
+
   return (
     <div
       className="
@@ -43,15 +47,14 @@ export function WidgetForm() {
         w-[calc(100vw-2rem)] md:w-auto
       "
     >
-      <header>
-        <span className="text-xl leading-6">Deixe seu feedback</span>
-        <CloseButton />
-      </header>
-
       {!feedbackType ? (
         <FeedbackTypeStep onFeedbackTypeChange={setFeedbackType} />
       ) : (
-        <p>Hello World</p>
+        <FeedbackContentStep
+          feedbackType={feedbackType}
+          // eslint-disable-next-line react/jsx-no-bind
+          onFeedbackRestartRequested={handleRestartFeedback}
+        />
       )}
 
       <footer>
