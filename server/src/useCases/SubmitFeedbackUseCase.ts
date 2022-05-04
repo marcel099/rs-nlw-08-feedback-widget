@@ -9,12 +9,12 @@ interface RequestDTO {
   screenshot?: string;
 }
 
-// @injectable()
+@injectable()
 export class SubmitFeedbackUseCase {
   constructor(
-    // @inject("FeedbackRepository")
+    @inject("FeedbackRepository")
     private feedbackRepository: FeedbackRepository,
-    // @inject("EmailAdapter")
+    @inject("EmailAdapter")
     private emailAdapter: EmailAdapter,
   ) {}
 

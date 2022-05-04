@@ -25,5 +25,4 @@ export class NodemailerEmailAdapter implements EmailAdapter {
       html: body,
     });
   };
-
 }
