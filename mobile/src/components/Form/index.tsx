@@ -16,6 +16,7 @@ import { SubmitButton } from '../SubmitButton';
 
 import { theme } from '../../theme';
 import { styles } from './styles';
+import { Copyright } from '../Copyright';
 
 interface FormProps {
   feedbackType: FeedbackType;
@@ -63,6 +64,8 @@ export function Form({ feedbackType }: FormProps) {
           isLoading={false}
         />
       </View>
+
+      <Copyright />
     </View>
   );
 }

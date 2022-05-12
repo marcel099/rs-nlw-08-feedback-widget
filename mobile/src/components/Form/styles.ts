@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    marginVertical: 16,
+    marginTop: 4,
+    marginBottom: 16,
   },
   titleContainer: {
     flex: 1,
