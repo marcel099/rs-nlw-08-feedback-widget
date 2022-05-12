@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
 
     position: 'absolute',
     right: 16,
-    bottom: getBottomSpace() * 16,
+    bottom: getBottomSpace() + 16,
   },
   modal: {
     backgroundColor: theme.colors.surface_primary,
