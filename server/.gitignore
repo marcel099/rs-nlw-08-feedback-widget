@@ -6,3 +6,5 @@ prisma/dev.db-journal
 
 *.log
 coverage
+
+dist
