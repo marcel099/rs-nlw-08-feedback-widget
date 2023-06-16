@@ -1,9 +1,18 @@
 import { container } from "tsyringe";
 
-import { EmailAdapter } from "../../adapters/EmailAdapter";
-import { NodemailerEmailAdapter } from "../../adapters/nodemailer/NodemailerEmailAdapter";
+import { IEmailAdapter } from "../../adapters/IEmailAdapter";
+import { MailtrapEmailAdapter } from "../../adapters/implementations/MailtrapEmailAdapter";
+import { GmailEmailAdapter } from "../../adapters/implementations/GmailEmailAdapter";
 
-container.registerSingleton<EmailAdapter>(
+const EmailAdapter = {
+  mailtrap: container.resolve(MailtrapEmailAdapter),
+  gmail: container.resolve(GmailEmailAdapter),
+};
+
+const chosenEmailAdapter =
+  process.env.EMAIL_PROVIDER as 'mailtrap' | 'gmail';
+
+container.registerInstance<IEmailAdapter>(
   "EmailAdapter",
-  NodemailerEmailAdapter,
+  EmailAdapter[chosenEmailAdapter],
 )

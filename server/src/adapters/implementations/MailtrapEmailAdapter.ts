@@ -1,9 +1,9 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import process from 'process';
 
-import { EmailAdapter, SendEmailDTO } from "../EmailAdapter";
+import { IEmailAdapter, SendEmailDTO } from "../IEmailAdapter";
 
-export class NodemailerEmailAdapter implements EmailAdapter {
+export class MailtrapEmailAdapter implements IEmailAdapter {
   constructor() {
     this.transport = nodemailer.createTransport({
       host: "smtp.mailtrap.io",
@@ -15,12 +15,14 @@ export class NodemailerEmailAdapter implements EmailAdapter {
     });
   }
 
-  transport: Transporter;
+  private transport: Transporter;
+
+  private to = `Desconhecido <${process.env.CUSTOMER_EMAIL_ADRESS}>`
 
   async sendEmail({ body, subject }: SendEmailDTO) {
     await this.transport.sendMail({
       from: 'Equipe Feedget <oi@feedget.com>',
-      to: 'Marcelo Lupatini <mar.lupatini@gmail.com>',
+      to: this.to,
       subject,
       html: body,
     });

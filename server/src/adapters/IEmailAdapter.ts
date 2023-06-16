@@ -3,6 +3,6 @@ export interface SendEmailDTO {
   body: string;
 }
 
-export interface EmailAdapter {
+export interface IEmailAdapter {
   sendEmail: (data: SendEmailDTO) => Promise<void>;
 }

@@ -3,7 +3,9 @@ import { FormEvent, useState } from "react";
 
 import { feedbackTypes, FeedbackType } from "..";
 
+import { api } from "../../../lib/axios";
 import { CloseButton } from "../../CloseButton";
+import { Loading } from "../../Loading";
 import { ScreenshotButton } from "../ScreenshotButton";
 
 interface FeedbackContentStepProps {
@@ -19,16 +21,22 @@ export function FeedbackContentStep({
 }: FeedbackContentStepProps) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState<string>("");
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false);
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
-  function handleSubmitFeedback(e: FormEvent) {
+  async function handleSubmitFeedback(e: FormEvent) {
     e.preventDefault();
 
-    console.log({
-      screenshot,
+    setIsSendingFeedback(true);
+
+    await api.post("/feedback", {
+      type: feedbackType,
       comment,
+      screenshot,
     });
+
+    setIsSendingFeedback(false);
 
     onFeedbackSent();
   }
@@ -81,10 +89,10 @@ export function FeedbackContentStep({
           />
           <button
             type="submit"
-            disabled={comment.length === 0 || screenshot === null}
+            disabled={comment.length === 0 || isSendingFeedback}
             className="
               p-2 bg-brand-500 rounded-md border-transparent
-              flex-1 justify-center items-center text-sm
+              flex-1 flex justify-center items-center text-sm
               hover:bg-brand-300 transition-colors
               focus:outline-none
               focus:ring-2 focus:ring-offset-2
@@ -92,7 +100,7 @@ export function FeedbackContentStep({
               disabled:opacity-50 disabled:hover:bg-brand-500
             "
           >
-            Enviar feedback
+            {isSendingFeedback ? <Loading /> : "Enviar feedback"}
           </button>
         </footer>
       </form>
