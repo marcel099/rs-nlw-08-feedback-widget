@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { EmailAdapter } from "../adapters/EmailAdapter";
+import { IEmailAdapter } from "../adapters/IEmailAdapter";
 import { FeedbackRepository } from "../repositories/FeedbackRepository";
 
 interface RequestDTO {
@@ -15,7 +15,7 @@ export class SubmitFeedbackUseCase {
     @inject("FeedbackRepository")
     private feedbackRepository: FeedbackRepository,
     @inject("EmailAdapter")
-    private emailAdapter: EmailAdapter,
+    private emailAdapter: IEmailAdapter,
   ) {}
 
   async execute(request: RequestDTO): Promise<void> {
