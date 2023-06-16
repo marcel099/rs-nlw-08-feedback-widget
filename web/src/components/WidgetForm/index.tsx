@@ -67,7 +67,7 @@ export function WidgetForm() {
         />
       )}
       <footer>
-        Feito com 🤍 pela{" "}
+        Feito com ♥ pela{" "}
         <a
           className="underline underline-offset-2"
           href="https://rocketseat.com.br"
