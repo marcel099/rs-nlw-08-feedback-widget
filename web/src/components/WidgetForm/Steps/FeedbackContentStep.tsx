@@ -28,17 +28,21 @@ export function FeedbackContentStep({
   async function handleSubmitFeedback(e: FormEvent) {
     e.preventDefault();
 
-    setIsSendingFeedback(true);
+    try {
+      setIsSendingFeedback(true);
 
-    await api.post("/feedback", {
-      type: feedbackType,
-      comment,
-      screenshot,
-    });
-
-    setIsSendingFeedback(false);
-
-    onFeedbackSent();
+      await api.post("/feedback", {
+        type: feedbackType,
+        comment,
+        screenshot,
+      });
+  
+      onFeedbackSent();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSendingFeedback(false);
+    }
   }
 
   return (
